@@ -9,6 +9,7 @@
     float:left;
     top: 60px;
     text-indent: 0px;
+    width:100%;
 }
 #container ul
 {
@@ -26,7 +27,7 @@
     color:black;
     font-weight: bold;
     text-decoration:none;
-    padding: 3em 6px;
+    padding: 3px 6px;
 }
 #container li a:hover 
 {
