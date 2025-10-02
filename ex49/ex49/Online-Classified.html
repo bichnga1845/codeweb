@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Ex49-Tran Thi Bich Nga</title>
+        <script>
+            function searchSimulation() {
+                let keywords = document.getElementById("4enter").value;
+                if (keywords.trim() === "") {
+                    alert("Search formulation: No keywords entered!");
+                } else {
+                    alert("Search formulation: " + keywords);
+                }
+            }
+            </script>
+    </head>
+    <body style="background-color: rgb(149,211,255);">
+    <form id="frm_ex49">
+        <h1 style="color:red ">Online Classifieds Search Form</h1>
+        <hr style="color:brown" height="10px"/>
+        <h3>1) Search for a classified in the following sections:</h3>
+        <table>
+            <tr>
+                <td>
+                    <input type="radio" name="sec" id="sec1">
+                    <label for="sec1">Employment</label>
+                    <input type="radio" name="sec" id="sec2">
+                    <label for="sec2">Personal</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="sec" id="sec3">
+                    <label for="sec3">For Sale</label>
+                    <input type="radio" name="sec" id="sec4">
+                    <label for="sec4">Miscellanecus</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="radio" name="sec" id="sec5">
+                    <label for="sec5">Housing</label>
+                    <input type="radio" name="sec" id="sec6">
+                    <label for="sec6">All of the above</label>
+                </td>
+            </tr>
+        </table>
+
+        <h3>2) Search the following publications:</h3>
+        <table>
+            <tr>
+                <td>
+                    <input type="checkbox" name="pub1" id="pub1">
+                    <label for="pub1">Midwest times</label>
+                    <input type="checkbox" name="pub3" id="pub2">
+                    <label for="pub2">Modern News</label>
+                    <input type="checkbox" name="pub3" id="pub3">
+                    <label for="pub2">Employment Today</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" name="pub4" id="pub4">
+                    <label for="pub4">Great Lakes Classifieds</label>
+                    <input type="checkbox" name="pub5" id="pub5">
+                    <label for="pub5">Middleton Daily</label>
+                    <input type="checkbox" name="pub6" id="pub6">
+                    <label for="pub6">Cashtown Daily News</label>
+                </td>
+            </tr>
+        </table>
+        <h3>3) From to 
+            <input type="date" name="datefrom" id="datefrom"> to
+            <input type="date" name="dateto" id="dateto">
+        </h3>
+        <h3>4) Enter a few keywords to describe the classified.</h3>
+        <input type="text" name="4enter" id="4enter" style="width:100%;">
+        <h3>5) Click one of the options below:</h3>
+        <img src="Search.gif" id="search" onclick="searchSimulation()">
+        <a href="https://is.uel.edu.vn/" target="_blank">
+            <img src="Help.gif" alt="Help" >
+          </a>
+        <input type="image" src="Cancel.gif" alt="Cancel" formnovalidate type="reset">
+
+
+    </form>
+    </body>
+</html>
