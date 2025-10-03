@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>First Degree - Tran Thi Bich Nga</title>
+        <script>
+            function giai()
+            {
+                //alert("Ban muon giai phuong trinh bac I")
+                hsa=frm_first_degree.hsa.value
+                hsb=frm_first_degree.hsb.value
+                frm_first_degree.Result.value=-hsb/hsa
+            }
+            function mo_website_khoa()
+            {
+                window.open("https://is.uel.edu.vn","_blank")
+            }
+        </script>
+    </head>
+    <body>
+        <form name="frm_first_degree">
+            <table>
+                <tr>
+                    <td>A:</td>
+                    <td>
+                        <input type="text" name="hsa" id="hsa">
+                    </td>
+                </tr>
+                <tr>
+                    <td>B:</td>
+                    <td>
+                        <input type="text" name="hsb" id="hsb">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Result:</td>
+                    <td>
+                        <input type="text" name="Result" id="Result">
+                    </td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <button type="button" onclick="javascript:giai()">Giải</button>
+                        <button type="reset">Làm lại</button>
+                        <button type="button" onlick="mo_website_khoa()">Mo website khoa</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
