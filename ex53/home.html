@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <title>Ex53 - Tran Thi Bich Nga</title>
+        <script type="text/javascript">
+            function calc_total()
+            {
+                q1 = product_form.qty1.value
+                q2 = product_form.qty2.value
+                q3 = product_form.qty3.value
+
+                p1 = 19.95; p2 = 29.95; p3 = 39.95
+
+                product_form.item1.value = (p1 * q1).toFixed(2)
+                product_form.item2.value = (p2 * q2).toFixed(2)
+                product_form.item3.value = (p3 * q3).toFixed(2)
+
+                total = p1 * q1 + p2 * q2 + p3 * q3
+                product_form.total.value = total.toFixed(2)
+
+                let url = "result.html?" +
+                        "qty1=" + q1 +
+                        "&item1=" + product_form.item1.value +
+                        "&qty2=" + q2 +
+                        "&item2=" + product_form.item2.value +
+                        "&qty3=" + q3 +
+                        "&item3=" + product_form.item3.value +
+                        "&total=" + total.toFixed(2);
+                window.location.href = url;
+
+            }
+        </script>
+    </head>
+
+    <body>
+        <form method="get" action="result.html" name="product_form">
+            <h2>Product List</h2>
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>Part Number</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                    <th>Item Total</th>
+                </tr>
+
+                <tr>
+                    <td>C112</td>
+                    <td>Mouse</td>
+                    <td>19.95</td>
+                    <td><input name="qty1" size="5"></td>
+                    <td><input name="item1" size="8" readonly></td>
+                </tr>
+
+                <tr>
+                    <td>B124</td>
+                    <td>Keyboard US</td>
+                    <td>29.95</td>
+                    <td><input name="qty2" size="5"></td>
+                    <td><input name="item2" size="8" readonly></td>
+                </tr>
+
+                <tr>
+                    <td>U125</td>
+                    <td>USB KingMax</td>
+                    <td>39.95</td>
+                    <td><input name="qty3" size="5"></td>
+                    <td><input name="item3" size="8" readonly></td>
+                </tr>
+
+                <tr>
+                    <td colspan="4" align="right">Total:</td>
+                    <td><input name="total" size="8" readonly></td>
+                </tr>
+
+                <tr>
+                    <td colspan="5" align="right">
+                    <button type="button" onclick="calc_total()">Sum</button>
+                    </td>
+            </tr>
+            </table>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Result - Tran Thi Bich Nga</title>
+</head>
+<body>
+    <h2>Order Summary</h2>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        document.write("<b>Quantity 1:</b> " + params.get("qty1") + "<br>");
+        document.write("<b>Item 1 total:</b> " + params.get("item1") + "<br>");
+        document.write("<b>Quantity 2:</b> " + params.get("qty2") + "<br>");
+        document.write("<b>Item 2 total:</b> " + params.get("item2") + "<br>");
+        document.write("<b>Quantity 3:</b> " + params.get("qty3") + "<br>");
+        document.write("<b>Item 3 total:</b> " + params.get("item3") + "<br>");
+        document.write("<hr>");
+        document.write("<b>Total = </b>" + params.get("total"));
+    </script>
+</body>
+</html>
