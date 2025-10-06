@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>Result - Tran Thi Bich Nga</title>
+    </head>
+    <body>
+        <h2>Received Contact Information</h2>
+        <script>
+            const params = new URLSearchParams(window.location.search);
+            document.write("<b>Full name:</b> " + params.get("full") + "<br>");
+            document.write("<b>Email:</b> " + params.get("email") + "<br>");
+            document.write("<b>Send to:</b> " + params.get("sendto") + "<br>");
+            document.write("<b>Title:</b> " + params.get("title") + "<br>");
+            document.write("<b>Content:</b> " + params.get("content") + "<br>");
+        </script>
+    </body>
+</html>

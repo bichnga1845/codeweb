@@ -1,6 +1,13 @@
 <html>
     <head>
         <title>Ex52-Tran Thi Bich Nga</title>
+        <script>
+            function send() {
+                // Khi bấm nút "Send", form sẽ gửi dữ liệu bằng GET
+                document.getElementById("ex52").action = "sendbutton.html"; // trang đích tự tạo
+                document.getElementById("ex52").submit();
+            }
+        </script>
     </head>
     <body>
     <form id="ex52" method="get">
@@ -12,7 +19,7 @@
             <tr>
                 <td colspan="2">
                     <input type="text" name="full" id="full" style="width:100%">
-                    <label for="full">Full name</label>
+                    
                 </td>
             </tr>
             <tr>
@@ -22,7 +29,7 @@
             <tr>
                 <td>
                     <input type="text" name="email" id="email" style="width:100%">
-                    <label for="email">Email</label>
+                    
                 </td>
                 <td>
                     <select>
