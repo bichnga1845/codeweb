@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <title>DOM2</title>
+        <script type="text/javascript">
+            function process_save_customer()
+            {
+                //get customer body
+                customer_body=document.getElementById("customer_body")
+                //create  row
+                //create tr
+                tr=document.createElement("tr")
+                //create td cuar nam
+                td_name=document.createElement("td")
+                td_name.innerText=myform.customer_name.value
+                tr.appendChild(td_name)
+                td_age=document.createElement("td")
+                td_age.innerText=myform.customer_age.value
+                tr.appendChild(td_age)
+                customer_body.appendChild(tr)
+            }
+        </script>
+    </head>
+    <body>
+        <form name="myform">
+            <fieldset>
+                <legend>Customer Information:</legend>
+                <table>
+                    <tr>
+                        <td> Customer Name:</td>
+                        <td><input type="text" name="customer_name"id="customer_name"></td>
+                    </tr>
+                    <tr>
+                        <td> Customer Age:</td>
+                        <td><input type="text" name="customer_age"id="customer_age"></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <button type="button" onclick="process_save_customer()">Save customer</button>
+        </form>
+
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Customer Name:</th>
+                    <th>Customer Age:</th>
+                </tr>
+            </thead>
+            <tbody id="customer_body"></tbody>
+        </table>
+    </body>
+</html>
