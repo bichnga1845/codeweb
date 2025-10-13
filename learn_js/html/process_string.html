@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Process string-Tran Thi Bich Nga</title>
+        <script>
+            function process_string()
+            {
+                str=myform.input_str.value
+                p1=str.indexOf(";")
+                p2=str.lastIndexOf(";")
+                //alert(p1)
+                //alert(p2)
+                out_name=str.substring(p1+1,p2)
+                //alert(out)
+                td_name.innerText=out_name
+                td_id.innerText=str.substring(0,p1)
+                td_price.innerText=str.substring(p2+1)
+            }
+        </script>
+    </head>
+    <body>
+        <form name="myform">
+            <table>
+                <Tr>
+                    <td>Input string:</td>
+                    <td>
+                        <input type="text" name="input_str" id="input_str" value="P01;Banana;15">
+                    </td>
+                </Tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>
+                        <button type="button" onclick="process_string()">Process</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ID:</td>
+                    <td id="td_id"></td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td id="td_name"></td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td id="td_price"></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
