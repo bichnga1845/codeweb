@@ -1,0 +1,151 @@
+<html>
+    <head>
+        <title>Ex56 - Tran Thi Bich Nga</title>
+        <script type="text/javascript">
+            function enter()
+            {
+                document.getElementById("input_data").readOnly=false
+                document.getElementById("input_data").focus()
+            }
+            function count_uppercase()
+            {
+                let text = document.getElementById("input_data").value;
+                let count = 0;
+                for (let i = 0; i < text.length; i++) {
+                    let c = text.charAt(i);
+                    if (c >= 'A' && c <= 'Z') count++;
+                }
+                document.getElementById("result").value = 
+                    "Số ký tự in hoa: " + count;
+            }
+            function count_lowercase()
+            {
+                text=document.getElementById("input_data").value
+                count=0
+                for(i=0;i<text.length;i++)
+                {
+                    c=text.charAt(i)
+                    if (c>="a" && c<="z")
+                    {
+                        count+=1
+                    }
+                }
+                document.getElementById("result").value = "Số ký tự in thường: " + count;
+            }
+            function uppercase()
+            {
+                text=document.getElementById("input_data").value
+                document.getElementById("result").value=text.toUpperCase()
+            }
+            function lowercase()
+            {
+                text=document.getElementById("input_data").value
+                document.getElementById("result").value=text.toLowerCase()
+            }
+            function one_word_perline()
+            {
+                text=document.getElementById("input_data").value
+                 // Tách các từ theo dấu cách, tab hoặc xuống dòng
+                 let words = text.split(/\s+/);
+                // Ghép lại, mỗi từ 1 dòng
+                let output = words.join("\n");
+                document.getElementById("result").value = output;
+            
+            }
+            function w3c()
+            {
+                window.open("https://www.w3schools.com/")
+            }
+            function count_word()
+            {
+                
+                text = document.getElementById("input_data").value.trim();
+                if (text === "") {
+                    document.getElementById("result").value = "Số từ: 0";
+                    return;
+                }
+                words = text.split(/\s+/);
+                document.getElementById("result").value = "Số từ: " + words.length;
+            }
+            function print_vowels_consonants()
+            {
+                text = document.getElementById("input_data").value.toLowerCase();
+                let vowels = [];
+                let consonants = [];
+
+                for (let ch of text) {
+                    if (/[a-z]/.test(ch)) {
+                        if ("aeiou".includes(ch)) vowels.push(ch);
+                        else consonants.push(ch);
+                    }
+                }
+                // Mỗi loại hiển thị trên một dòng, mỗi chữ cách nhau bằng khoảng trắng
+                document.getElementById("result").value =
+                    "Nguyên âm:\n" + vowels.join(" ") +
+                    "\n\nPhụ âm:\n" + consonants.join(" ");
+            }
+            
+            
+        </script>
+    </head>
+    <body>
+        <form name="myform">
+            <table>
+                <tr>
+                    <td colspan="2"><b>Using String Processing functions</b></td>
+                </tr>
+                <tr>
+                    <td>
+                        <fieldset>
+                            <legend style="font-size: 25px;"><b>Input Data:</b></legend>
+                            <textarea type="text" name="input_data" id="input_data" style="width: 100%;" readonly></textarea>
+                        </fieldset>
+                    </td>
+                    <td>
+                        <fieldset>
+                            <legend style="font-size: 25px;"><b>Results:</b></legend>
+                            <textarea type="textarea" name="result" id="result" style="width: 100%;" readonly></textarea>
+                        </fieldset>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="enter()">Enter Data</button>
+                    </td>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="count_uppercase()">Count the number of uppercase characters</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="uppercase()">Uppercase display</button>
+                    </td>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="one_word_perline()">Output one word per line</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="lowercase()">Lowercase display</button>
+                    </td>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="count_word()">Word count</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="count_lowercase()">Count the number of lowercase characters</button>
+                    </td>
+                    <td>
+                        <button type="button" style="width: 100%;" onclick="print_vowels_consonants()">Print vowels, consonants</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <button type="button" style="width: 100%;" onclick="w3c()">W3C's String Processing Website</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
