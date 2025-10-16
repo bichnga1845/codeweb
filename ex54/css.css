@@ -1,0 +1,24 @@
+table, td{
+    border: 1px solid;   
+}
+input{
+    width: 100%;
+}
+tr{
+    text-align: center;
+}
+td{
+    width: 200px;
+}
+#td_button{
+    text-align: left;
+    border: none;
+}
+button{
+    width: 60px;
+    height: 25px;
+}
+button:hover{
+    background-color: pink;
+    cursor: pointer;
+}

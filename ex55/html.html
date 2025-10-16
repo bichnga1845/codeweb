@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Ex 55 - Tran Thi Bich Nga</title>
+        <link rel="stylesheet" type="text/css" href="css.css"/>
+        <script src="js.js"></script>
+    </head>
+    <body>
+        <form>
+            <table>
+                <tr id="title">
+                    <td colspan="2">The quadratic equation</td>
+                </tr>
+                <tr>
+                    <td>a:</td>
+                    <td>
+                        <input type="text" name="a" id="a"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>b:</td>
+                    <td>
+                        <input type="text" name="b" id="b"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>c:</td>
+                    <td>
+                        <input type="text" name="c" id="c"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Result:</td>
+                    <td>
+                        <input type="text" name="result" id="result"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="button" onclick="calc_quadratic(a.value,b.value,c.value,result)">Find solution</button>
+                        <button type="reset">Clear</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

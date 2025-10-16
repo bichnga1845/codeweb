@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Ex 54 - Tran Thi Bich Nga</title>
+        <link rel="stylesheet" type="text/css" href="css.css">
+        <script src="js.js"></script>
+    </head>
+    <body>
+        <form>
+            <table>
+                <tr>
+                    <td>a:</td>
+                    <td><input type="text" name="a" id="a"/></td>
+                </tr>
+                <tr>
+                    <td>b:</td>
+                    <td><input type="text" name="b" id="b"/></td>
+                </tr>
+                <tr>
+                    <td>c:</td>
+                    <td><input type="text" name="c" id="c"/></td>
+                </tr>
+                <tr>
+                    <td>Result:</td>
+                    <td><input type="text" name="result" id="result"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2" id="td_button">
+                        <button type="button" onclick="max(a.value,b.value,c.value,result)">MAX</button>
+                        <button type="button" onclick="min(a.value,b.value,c.value,result)">MIN</button>
+                        <button type="button" onclick="sin(a.value,result)">Sin(a)</button>
+                        <button type="button" onclick="cos(a.value,result)">Cos(a)</button>
+                        <button type="button" onclick="luy_thua(a.value,b.value,result)">a<sup>b</sup></button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>

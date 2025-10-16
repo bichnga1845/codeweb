@@ -1,0 +1,21 @@
+table, td{
+    border: 1px solid;
+}
+tr{
+    text-align: center;
+}
+#title{
+    background-color: aquamarine;
+}
+#result{
+    color: red;
+}
+button{
+    border: 2px orange solid;
+}
+button:hover{
+    background-color: aqua;
+    border: 2px;
+    border-color: violet;
+    border-style: solid;
+}
