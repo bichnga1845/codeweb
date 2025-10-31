@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog cá nhân - Trần Thị Bích Nga</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+   <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:linear-gradient(135deg,#fff6f1,#ffe1e7,#ffe6f3);
+      color:#2a2a2a;
+      padding:28px 12px 60px;
+      text-align:center;
+    }
+
+    h1,h2,h3{
+      font-family:'Playfair Display',serif;
+    }
+
+    /* Header */
+    .header{
+      max-width:960px;
+      margin:0 auto 28px;
+      background:linear-gradient(120deg,#f78fb3,#fbc2eb);
+      color:#fff;
+      border-radius:20px;
+      padding:28px;
+      display:flex;
+      align-items:center;
+      gap:22px;
+      box-shadow:0 8px 28px rgba(250,140,180,0.3);
+    }
+
+    .avatar{
+      width:110px;
+      height:110px;
+      border-radius:50%;
+      object-fit:cover;
+      border:4px solid rgba(255,255,255,0.5);
+      box-shadow:0 6px 18px rgba(0,0,0,0.1);
+      flex-shrink:0;
+    }
+
+    .profile-info{
+      text-align:left;
+      flex:1;
+    }
+
+    .profile-info h1{
+      font-size:26px;
+      font-weight:700;
+      margin-bottom:8px;
+      letter-spacing:0.6px;
+    }
+
+    .profile-meta{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .badge{
+      background:rgba(255,255,255,0.2);
+      padding:6px 12px;
+      border-radius:999px;
+      font-weight:600;
+      font-size:14px;
+      letter-spacing:0.3px;
+    }
+
+    .tagline{
+      margin-top:10px;
+      font-size:14px;
+      opacity:0.95;
+      font-style:italic;
+    }
+
+    /* Content */
+    .content{
+      max-width:960px;
+      margin:22px auto;
+      background:#fff;
+      border-radius:18px;
+      padding:26px 28px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      line-height:1.8;
+      text-align:left;
+    }
+
+    .content p{
+      font-size:16px;
+      margin-bottom:12px;
+      color:#444;
+    }
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .gallery figure{
+      overflow:hidden;
+      border-radius:14px;
+      background:linear-gradient(180deg,#fff,#fdf2f7);
+      box-shadow:0 6px 16px rgba(0,0,0,0.1);
+      transition:transform .35s ease, box-shadow .35s ease;
+    }
+
+    .gallery img{
+      width:100%;
+      height:200px;
+      object-fit:cover;
+      transition:transform .5s ease;
+      display:block;
+    }
+
+    .gallery figure:hover img{
+      transform:scale(1.05);
+    }
+
+    .gallery figure:hover{
+      transform:translateY(-5px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.12);
+    }
+
+    .caption{
+      padding:10px 12px;
+      text-align:left;
+      font-size:14px;
+      color:#555;
+      font-style:italic;
+    }
+
+    /* Footer */
+    .footer{
+      margin-top:30px;
+      font-weight:700;
+      color:#ff3e7d;
+      animation:blink 1.5s infinite alternate;
+      text-shadow:0 0 10px rgba(255,94,142,0.3);
+      letter-spacing:0.8px;
+      font-family:'Playfair Display',serif;
+      font-size:18px;
+    }
+
+    @keyframes blink{
+      from{opacity:1}
+      to{opacity:0.4}
+    }
+
+    /* Responsive */
+    @media (max-width:900px){
+      .header{flex-direction:column;text-align:center}
+      .profile-info{text-align:center}
+      .gallery{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media (max-width:500px){
+      .gallery{grid-template-columns:1fr}
+      .gallery img{height:220px}
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <!-- Thay ../images/ava.jpg bằng đường dẫn avatar của bạn -->
+    <img class="avatar" src="images/ava.jpg" alt="Avatar Tran Thi Bich Nga">
+
+    <div class="profile-info">
+      <h1>Trần Thị Bích Nga</h1>
+      <div class="profile-meta">
+        <div class="badge">MSSV: K234111401</div>
+        <div class="badge">Lớp: K23411TE</div>
+      </div>
+      <div class="tagline">💖 Thật yêu cột sống sanh diên!!!!</div>
+    </div>
+  </header>
+
+  <main class="content">
+    <p>
+      Học tập với sự hỗ trợ siêu nhiệt tình từ <strong>thầy cố vấn học tập — thầy Trần Duy Thanh</strong>,
+      mình luôn cảm thấy được dẫn dắt và truyền cảm hứng. Thầy giúp mình định hướng, trả lời thắc mắc và khuyến khích thử thách bản thân.
+    </p>
+
+    <p>
+      Bên cạnh đó, môi trường học tập cùng <strong>bạn bè năng động, nhiệt huyết</strong> đã tạo nên nguồn động lực lớn:
+      chúng mình cùng nhau ôn bài, thảo luận đồ án, và hỗ trợ nhau vượt qua những lúc khó khăn — chính những khoảnh khắc đó giúp mình trưởng thành.
+    </p>
+
+    <p>
+      Thành quả không đến ngay lập tức, nhưng từng bước nhỏ — cố gắng, sửa sai, và kiên trì — đều tạo nên tiến bộ. Mình trân trọng mọi kỷ niệm trên hành trình này.
+    </p>
+
+    <!-- 6 ảnh gallery -->
+    <section class="gallery" aria-label="Bộ sưu tập ảnh">
+      <figure>
+        <img src="images/1.jpg" alt="Lớp học cùng thầy">
+        <figcaption class="caption">Buổi học cùng thầy Thanh môn Phát triển Web kinh doanh nà</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/2.jpg" alt="Ngoại khóa">
+        <figcaption class="caption">Ngoại khóa— động lực và niềm vui</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/3.jpg" alt="Top 3">
+        <figcaption class="caption">Cũng được khen thưởng Top 3 sinh viên xuất sắc của kì nà</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/4.jpg" alt="Top 3">
+        <figcaption class="caption">Mấy lần rồi nay mới được chụp chung với thầy</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/5.jpg" alt="Top 3">
+        <figcaption class="caption">Cà phê + ăn trung thu = hihi</figcaption>
+      </figure>
+
+      <figure>
+        <img src="images/6.jpg" alt="Top 3">
+        <figcaption class="caption">Niềm vui từng ngày</figcaption>
+      </figure>
+    </section>
+  </main>
+
+  <div class="footer">✨ Trân trọng những điều đi qua!!! ✨</div>
+
+</body>
+</html>

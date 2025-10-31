@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8">
+    <title>Product List</title>
+    <style>
+          body {
+            font-family: "Segoe UI", sans-serif;
+            background: #f5f7fa;
+            margin: 0;
+            padding: 30px;
+          }
+          h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+          }
+          select {
+            display: block;
+            margin: 0 auto 20px auto;
+            padding: 8px 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+          }
+          table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          }
+          th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+          }
+          th {
+            background: #56ab2f;
+            color: white;
+          }
+          tr:hover {
+            background: #f0f9eb;
+          }
+          img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+          }
+          .detail {
+            font-size: 0.9rem;
+            color: #555;
+          }
+    </style>
+  </head>
+  <body>
+
+    <h2>Product List</h2>
+
+    <select id="categorySelect">
+      <option value="all">All Categories</option>
+    </select>
+
+    <table id="productTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+
+      <tbody id="productBody">
+        <tr><td colspan="4">Loading data...</td></tr>
+      </tbody>
+      
+    </table>
+
+    <script>
+    function loadProducts(xmlDoc, category = "all") {
+      const tbody = document.getElementById("productBody");
+      const products = xmlDoc.getElementsByTagName("product");
+      tbody.innerHTML = "";
+
+      for (let i = 0; i < products.length; i++) {
+        const p = products[i];
+        const catename = p.getAttribute("catename") || "uncategorized";
+        if (category !== "all" && category !== catename) continue;
+
+        const id = p.getElementsByTagName("id")[0].textContent;
+        const name = p.getElementsByTagName("name")[0].textContent;
+        const detail = p.getElementsByTagName("detail")[0].textContent;
+        const image = p.getElementsByTagName("image")[0].textContent;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${id}</td>
+          <td><img src="${image}" alt="${name}"></td>
+          <td>${name}</td>
+          <td class="detail">${detail}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+
+      if (tbody.innerHTML === "") {
+        tbody.innerHTML = `<tr><td colspan="4">No products found</td></tr>`;
+      }
+    }
+
+    function loadCategories(xmlDoc) {
+      const select = document.getElementById("categorySelect");
+      const products = xmlDoc.getElementsByTagName("product");
+      const categories = new Set();
+
+      for (let i = 0; i < products.length; i++) {
+        const catename = products[i].getAttribute("catename");
+        if (catename) categories.add(catename);
+      }
+
+      categories.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+        option.textContent = cat;
+        select.appendChild(option);
+      });
+
+      select.addEventListener("change", () => {
+        loadProducts(xmlDoc, select.value);
+      });
+    }
+
+    // Fetch file XML local
+    function fetchProducts() {
+      fetch("CA02_products.xml")
+        .then(res => res.text())
+        .then(str => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(str, "text/xml");
+          loadCategories(xmlDoc);
+          loadProducts(xmlDoc);
+        })
+        .catch(err => {
+          console.error(err);
+          document.getElementById("productBody").innerHTML =
+            `<tr><td colspan="4">Error loading data</td></tr>`;
+        });
+    }
+
+    window.onload = fetchProducts;
+    </script>
+
+  </body>
+</html>

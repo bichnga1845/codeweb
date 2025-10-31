@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="utf-8" />
+        <title>Midterm - Tran Thi Bich Nga</title>
+        <link rel="stylesheet" href="main.css" />
+        <script src="main.js"></script>
+    </head>
+    <body>
+        <header height="10%">
+            <nav class="navbar" >
+                <ul>
+                    <li><a href="aboutme.html" target="mainFrame">About me</a></li>
+                    <li>
+                        <a href="#">API and External</a>
+                        <ul class="dropdown">
+                            <li><a href="weather.html" target="mainFrame">Weather API</a></li>
+                            <li><a href="rss.html" target="mainFrame">RSS</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Form & Javascript</a>
+                        <ul class="dropdown">
+                            <li><a href="product.html" target="mainFrame">Products</a></li>
+                            <li><a href="provider.html" target="mainFrame">Providers</a></li>
+                        </ul>
+                    </li>
+                    
+                    <li><a href="login.html" id="loginLink" target="mainFrame">Login/Logout</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main class="layout" height="80%">
+            <section class="sidebar-left" width="25%">
+                <iframe src="vietlot.html" name="leftFrame" frameborder="0">
+                    
+                </iframe>
+            </section>
+
+            <section class="content" width="60%">
+                <iframe src="aboutme.html" name="mainFrame" frameborder="0"></iframe>
+            </section>
+
+            <section class="sidebar-right" width="15%">
+                <iframe src="marque.html" name="rightFrame" frameborder="0"></iframe>
+            </section>
+        </main>
+        <footer height="10%">
+            <iframe src="footer.html" frameborder="0"></iframe>
+        </footer>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+            const loginLink = document.getElementById("loginLink");
+            const mainFrame = document.querySelector("iframe[name='mainFrame']");
+            const otherLinks = document.querySelectorAll("nav a:not(#loginLink)");
+
+            // enable/disable menu + radio
+            function setMenuStatus(enabled) {
+                otherLinks.forEach(link => {
+                    if(enabled){
+                        link.classList.remove("disabled");
+                        link.setAttribute("target","mainFrame");
+                    } else {
+                        link.classList.add("disabled");
+                        link.removeAttribute("target");
+                    }
+                });
+
+                // radio button iframe
+                if(mainFrame.contentWindow){
+                    try {
+                        const radios = mainFrame.contentDocument?.querySelectorAll("input[type='radio']");
+                        if(radios){
+                            radios.forEach(r => r.disabled = !enabled);
+                        }
+                    } catch(e) {
+                        // iframe chưa load xong
+                        mainFrame.addEventListener("load", () => {
+                            const radios = mainFrame.contentDocument?.querySelectorAll("input[type='radio']");
+                            if(radios) radios.forEach(r => r.disabled = !enabled);
+                        });
+                    }
+                }
+            }
+
+            function updateLoginStatus() {
+                const user = localStorage.getItem("loggedInUser");
+                if(user){
+                    loginLink.textContent = `Logout (${user})`;
+                    loginLink.removeAttribute("target");
+                    loginLink.href = "#";
+                    setMenuStatus(true);
+                } else {
+                    loginLink.textContent = "Login";
+                    loginLink.setAttribute("target","mainFrame");
+                    loginLink.href = "login.html";
+                    setMenuStatus(false);
+                }
+            }
+
+            loginLink.addEventListener("click", function(e){
+                const user = localStorage.getItem("loggedInUser");
+                if(user){
+                    e.preventDefault();
+                    if(confirm("Bạn có chắc muốn logout không?")){
+                        localStorage.removeItem("loggedInUser");
+                        alert("Đã logout!");
+                        updateLoginStatus();
+                        mainFrame.src = "about_me.html";
+                    }
+                }
+            });
+
+            // Listen login message từ iframe
+            window.addEventListener("message", function(event){
+                if(event.data.type === "loginSuccess"){
+                    updateLoginStatus();
+                    mainFrame.src = "about_me.html";
+                }
+            });
+
+            updateLoginStatus();
+        });
+
+            </script>
+
+    </body>
+</html>

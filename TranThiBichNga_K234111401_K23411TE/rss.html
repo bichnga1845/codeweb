@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Education RSS</title>
+<style>
+  body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: #e0f2f1;
+    color: #2e7d32;
+  }
+
+  h1 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    letter-spacing: 0.5px;
+  }
+
+  #loading {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  .table-container {
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    background: #ffffff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid #c4e3b3;
+    padding: 8px 6px;
+    text-align: left;
+    vertical-align: top;
+    font-size: 14px;
+  }
+
+  th {
+    background-color: #2e7d32;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2fdf2;
+  }
+
+  tr:hover td {
+    background-color: #dcedc1;
+    transition: background 0.3s;
+  }
+
+  a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    color: #1b5e20;
+  }
+
+  img {
+    max-width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Scroll đẹp */
+  .table-container::-webkit-scrollbar {
+    width: 8px;
+  }
+  .table-container::-webkit-scrollbar-thumb {
+    background: #a8e6cf;
+    border-radius: 4px;
+  }
+  .table-container::-webkit-scrollbar-track {
+    background: #e0f2f1;
+  }
+</style>
+</head>
+<body>
+
+<h1>VNExpress - Education (RSS)</h1>
+<div id="loading">Đang tải dữ liệu...</div>
+<div class="table-container">
+  <table id="rss-table">
+      <thead>
+          <tr>
+              <th>Tiêu đề</th>
+              <th>Mô tả</th>
+              <th>Ngày đăng</th>
+              <th>Link</th>
+          </tr>
+      </thead>
+      <tbody id="rss-body">
+      </tbody>
+  </table>
+</div>
+
+<script>
+async function loadRSS() {
+    const loading = document.getElementById("loading");
+    const tbody = document.getElementById("rss-body");
+    tbody.innerHTML = "";
+    loading.innerText = "⏳ Đang tải dữ liệu...";
+
+    try {
+        const rssUrl = encodeURIComponent("https://thanhnien.vn/rss/giao-duc.rss");
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`;
+
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+
+        if (!data.items || data.items.length === 0) {
+            loading.innerText = "Không có tin tức nào.";
+            return;
+        }
+
+        loading.innerText = `Đã tải ${data.items.length} tin tức`;
+
+        data.items.forEach(item => {
+            const tr = document.createElement("tr");
+
+            // Tiêu đề
+            const tdTitle = document.createElement("td");
+            tdTitle.innerText = item.title || "";
+            tr.appendChild(tdTitle);
+
+            // Mô tả
+            const tdDesc = document.createElement("td");
+            tdDesc.innerHTML = item.description || "";
+            tr.appendChild(tdDesc);
+
+            // Ngày đăng
+            const tdDate = document.createElement("td");
+            tdDate.innerText = item.pubDate ? new Date(item.pubDate).toLocaleString() : "";
+            tr.appendChild(tdDate);
+
+            // Link
+            const tdLink = document.createElement("td");
+            const a = document.createElement("a");
+            a.href = item.link || "#";
+            a.target = "_blank";
+            a.innerText = "Xem chi tiết";
+            tdLink.appendChild(a);
+            tr.appendChild(tdLink);
+
+            tbody.appendChild(tr);
+        });
+
+    } catch (err) {
+        console.error(err);
+        loading.innerText = "Lỗi khi tải RSS.";
+    }
+}
+
+window.onload = loadRSS;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Footer</title>
+  <style>
+    /* ==== PHẦN E (Footer) ==== */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    #E {
+      color: white;
+      height: 60px;
+      text-align: left;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+      background-color: #539f39;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #container {
+    width: 100%;
+    background: linear-gradient(90deg, #ffd1dc, #fff5c3, #d7ffd7);
+    padding: 10px;
+    text-align: left;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(255, 182, 193, 0.6);
+    animation: glow 4s ease-in-out infinite alternate;
+    display: flex;
+    align-items: center; /* căn giữa theo chiều dọc */
+    gap: 15px; /* khoảng cách giữa chữ và đồng hồ */
+    }
+
+
+    #text {
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      font-size: 20px;
+      animation: blink 1.2s infinite, colorShift 8s linear infinite;
+    }
+
+    /* Hiển thị đồng hồ */
+    #time-box {
+      font-family: "Courier New", monospace;
+      font-size: 18px;
+      color: #444;
+      margin-top: 5px;
+      animation: timeColor 6s linear infinite;
+    }
+
+    /* Hiệu ứng chớp nháy nhẹ */
+    @keyframes blink {
+      50% { opacity: 0.6; }
+    }
+
+    /* Hiệu ứng phát sáng nền */
+    @keyframes glow {
+      0% { box-shadow: 0 0 10px rgba(255, 105, 180, 0.3); }
+      100% { box-shadow: 0 0 25px rgba(255, 182, 193, 0.9); }
+    }
+
+    /* Đổi màu chữ dần */
+    @keyframes colorShift {
+      0% { color: #ff4081; }
+      25% { color: #2196f3; }
+      50% { color: #4caf50; }
+      75% { color: #ff9800; }
+      100% { color: #ff4081; }
+    }
+
+    /* Đổi màu đồng hồ */
+    @keyframes timeColor {
+      0% { color: #ff1493; }
+      25% { color: #0099ff; }
+      50% { color: #32cd32; }
+      75% { color: #ffa500; }
+      100% { color: #ff1493; }
+    }
+  </style>
+</head>
+<body>
+  <footer id="E">
+    <div id="container">
+      <p id="text">Designed by Student Tran Thi Bich Nga, today is ...</p>
+      <span id="time-box"></span>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const textElement = document.getElementById("text");
+      const timeBox = document.getElementById("time-box");
+
+      function updateDateTime() {
+        const now = new Date();
+        const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const dateString = now.toLocaleDateString('en-US', dateOptions);
+        const timeString = now.toLocaleTimeString();
+
+        textElement.innerHTML = `Designed by Student Tran Thi Bich Nga, today is ${dateString}`;
+        timeBox.innerText = `⏰ ${timeString}`;
+      }
+
+      // Cập nhật ngay khi tải trang
+      updateDateTime();
+      // Sau đó tự cập nhật mỗi giây
+      setInterval(updateDateTime, 1000);
+    });
+  </script>
+</body>
+</html>

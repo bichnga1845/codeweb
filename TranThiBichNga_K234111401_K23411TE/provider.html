@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Provider Management</title>
+<style>
+    body {
+        font-family: "Segoe UI", sans-serif;
+        background: #eef2f7;
+        margin: 0;
+        padding: 30px;
+        color: #2c3e50;
+    }
+    h2 {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    #providerForm {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 15px;
+        max-width: 500px;
+        margin: auto;
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        box-sizing: border-box;
+    }
+    #providerForm input {
+        padding: 12px 15px;
+        font-size: 14px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        width: 100%;
+        transition: all 0.2s;
+        outline: none;
+        box-sizing: border-box;
+    }
+    #providerForm input:focus {
+        border-color: #56ab2f;
+        box-shadow: 0 0 6px rgba(86,171,47,0.3);
+        background-color: #f8fff5;
+    }
+    #providerForm button {
+        grid-column: 1 / -1;
+        padding: 12px;
+        background: linear-gradient(90deg, #56ab2f, #a8e063);
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    #providerForm button:hover {
+        background: linear-gradient(90deg, #3b7a1e, #7fc06e);
+        transform: scale(1.02);
+    }
+    #providerTable {
+        width: 100%;
+        margin: 30px auto 0 auto;
+        border-collapse: collapse;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        background: #fff;
+    }
+    #providerTable th, #providerTable td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        font-size: 14px;
+    }
+    #providerTable th {
+        background: linear-gradient(90deg, #56ab2f, #a8e063);
+        color: white;
+    }
+    #providerTable tr:hover {
+        background: #f0f9eb;
+    }
+    #providerTable td button {
+        background: #e74c3c;
+        padding: 6px 12px;
+        border-radius: 6px;
+        color: white;
+        font-size: 12px;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+    #providerTable td button:hover {
+        background: #c0392b;
+        transform: scale(1.05);
+    }
+    #downloadJsonBtn {
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 6px;
+        border: none;
+        background: linear-gradient(90deg, #56ab2f, #a8e063);
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    #downloadJsonBtn:hover {
+        background: linear-gradient(90deg, #3b7a1e, #7fc06e);
+        transform: scale(1.05);
+    }
+</style>
+</head>
+<body>
+
+    <h2>Provider Management</h2>
+
+    <form id="providerForm">
+        <input type="text" id="provID" placeholder="Provider ID" required>
+        <input type="text" id="provName" placeholder="Name" required>
+        <input type="text" id="provPhone" placeholder="Phone" required>
+        <input type="email" id="provEmail" placeholder="Email" required>
+        <button type="submit">Add Provider</button>
+    </form>
+
+    <table id="providerTable">
+        <thead>
+            <tr>
+                <th colspan="5" style="text-align:right;">
+                    <button id="downloadJsonBtn">Download JSON</button>
+                </th>
+            </tr>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="providerBody">
+            <tr><td colspan="5" style="text-align:center;">⏳ No providers yet</td></tr>
+        </tbody>
+    </table>
+
+    <script>
+    let providerList = JSON.parse(localStorage.getItem("providers")) || [];
+    window.onload = renderProviders;
+
+    document.getElementById("providerForm").addEventListener("submit", function(e){
+        e.preventDefault();
+
+        const id = document.getElementById("provID").value.trim();
+        const name = document.getElementById("provName").value.trim();
+        const phone = document.getElementById("provPhone").value.trim();
+        const email = document.getElementById("provEmail").value.trim();
+
+        if(!id || !name || !phone || !email){
+            alert("All fields are required!");
+            return;
+        }
+        if(!/^\d{10,11}$/.test(phone)){
+            alert("Phone must be 10 or 11 digits!");
+            return;
+        }
+        if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+            alert("Invalid email format!");
+            return;
+        }
+
+        providerList.push({id, name, phone, email});
+        localStorage.setItem("providers", JSON.stringify(providerList));
+        renderProviders();
+        this.reset();
+    });
+
+    function renderProviders(){
+        const tbody = document.getElementById("providerBody");
+        tbody.innerHTML = "";
+
+        if(providerList.length === 0){
+            tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">⏳ No providers yet</td></tr>`;
+            return;
+        }
+
+        providerList.forEach((prov,index)=>{
+            const tr = document.createElement("tr");
+            tr.style.backgroundColor = index % 2 === 0 ? "magenta" : "yellow";
+            tr.style.color = index % 2 === 0 ? "white" : "black";
+
+            tr.innerHTML = `
+                <td>${prov.id}</td>
+                <td>${prov.name}</td>
+                <td>${prov.phone}</td>
+                <td>${prov.email}</td>
+                <td><button onclick="deleteProvider(${index})">Delete</button></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function deleteProvider(index){
+        if(confirm("Are you sure to delete this provider?")){
+            providerList.splice(index,1);
+            localStorage.setItem("providers", JSON.stringify(providerList));
+            renderProviders();
+        }
+    }
+
+    // Download JSON ngay trong bảng
+    document.getElementById("downloadJsonBtn").addEventListener("click", function(){
+        if(providerList.length === 0){
+            alert("No providers to save!");
+            return;
+        }
+        const blob = new Blob([JSON.stringify(providerList, null, 2)], {type: "application/json"});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "providers.json";
+        a.click();
+        URL.revokeObjectURL(url);
+    });
+    </script>
+
+</body>
+</html>

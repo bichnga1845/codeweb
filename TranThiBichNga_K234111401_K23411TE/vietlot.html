@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kết quả Vietlott</title>
+<style>
+    body {
+      margin: 0;
+      padding: 30px;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background-color: #e0f2f1;
+      color: #2e7d32;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #2e7d32;
+    }
+    .radio-group {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    .radio-group input {
+      display: none;
+    }
+    .radio-group label {
+      padding: 10px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #2e7d32;
+      background: linear-gradient(135deg, #a8e6cf, #dcedc1);
+      transition: 0.3s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .radio-group label:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .radio-group input:checked + label {
+      background: linear-gradient(135deg, #2e7d32, #1b5e20);
+      color: white;
+    }
+    #lotteryContent {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    table.lottery-table {
+      width: 100%;
+      max-width: 900px;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      background: white;
+      font-size: 14px;
+    }
+    table.lottery-table th, table.lottery-table td {
+      padding: 12px 8px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    table.lottery-table th {
+      background: linear-gradient(90deg, #56ab2f, #a8e063);
+      color: white;
+      font-size: 14px;
+    }
+    table.lottery-table tr:nth-child(even) {
+      background: #f7fcf7;
+    }
+    table.lottery-table tr:hover {
+      background: #e6f4e6;
+    }
+    .number {
+      display: inline-block;
+      width: 28px;
+      height: 28px;
+      line-height: 28px;
+      margin: 2px;
+      border-radius: 50%;
+      background-color: #56ab2f;
+      color: white;
+      font-weight: bold;
+    }
+    .number-supplement {
+      background-color: #56ab2f;
+    }
+    .loading {
+      font-size: 16px;
+      color: #2e7d32;
+      font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+    <h2>Kết quả Vietlott</h2>
+
+    <div class="radio-group">
+    <input type="radio" id="none" name="lottery" value="none" checked>
+    <label for="none">None</label>
+
+    <input type="radio" id="mega" name="lottery" value="mega645">
+    <label for="mega">Mega 645</label>
+
+    <input type="radio" id="power" name="lottery" value="power655">
+    <label for="power">Power 655</label>
+    </div>
+
+    <div id="lotteryContent">Vui lòng chọn loại xổ số để xem kết quả!!!</div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const radios = document.querySelectorAll("input[name='lottery']");
+        const lotteryContent = document.getElementById("lotteryContent");
+
+        async function fetchLottery(type) {
+            if (type === "none") {
+            lotteryContent.innerHTML = "Vui lòng chọn loại xổ số để xem kết quả";
+            return;
+            }
+
+            lotteryContent.innerHTML = '<div class="loading">Đang tải dữ liệu...</div>';
+            const url = `https://webapi.dantri.com.vn/lottery/get-vietlott-jack?type=${type}`;
+
+            try {
+            const response = await fetch(url);
+            const json = await response.json();
+
+            lotteryContent.innerHTML = ""; // clear
+
+            if (json.status && json.data) {
+                let results = json.data[type];
+
+                if (results && results.length > 0) {
+                results.forEach(item => {
+                    const table = document.createElement("table");
+                    table.className = "lottery-table";
+
+                    let headerRow = document.createElement("tr");
+                    if (type === "mega645") {
+                    headerRow.innerHTML = `
+                        <th>DrawDate</th>
+                        <th>GameResultId</th>
+                        <th>Numbers</th>
+                        <th>Jackpot</th>
+                        <th>JackportWinner</th>
+                    `;
+                    } else {
+                    headerRow.innerHTML = `
+                        <th>DrawDate</th>
+                        <th>GameResultId</th>
+                        <th>Numbers</th>
+                        <th>Jackpot</th>
+                        <th>Jackpot2</th>
+                        <th>JackportWinner</th>
+                        <th>JackportWinner2</th>
+                    `;
+                    }
+                    table.appendChild(headerRow);
+
+                    let dataRow = document.createElement("tr");
+
+                    let numbers = item.ListNumber;
+                    // handle power: may have pipe separator
+                    if (type === "power655" && numbers.includes("|")) {
+                    const parts = numbers.split("|");
+                    const main = parts[0].split("-");
+                    const sup = parts[1];
+                    numbers = main.map(n => `<span class="number">${n}</span>`).join(" ")
+                                + ` <span class="number number-supplement">${sup}</span>`;
+                    } else {
+                    const main = numbers.split("-");
+                    numbers = main.map(n => `<span class="number">${n}</span>`).join(" ");
+                    }
+
+                    if (type === "mega645") {
+                    dataRow.innerHTML = `
+                        <td>${item.DrawDate}</td>
+                        <td>${item.GameResult645Id}</td>
+                        <td>${numbers}</td>
+                        <td>${item.Jackpot}</td>
+                        <td>${item.JackportWinner}</td>
+                    `;
+                    } else {
+                    dataRow.innerHTML = `
+                        <td>${item.DrawDate}</td>
+                        <td>${item.GameResult655Id}</td>
+                        <td>${numbers}</td>
+                        <td>${item.Jackpot}</td>
+                        <td>${item.Jackpot2}</td>
+                        <td>${item.JackportWinner}</td>
+                        <td>${item.JackportWinner2}</td>
+                    `;
+                    }
+
+                    table.appendChild(dataRow);
+                    lotteryContent.appendChild(table);
+                });
+                } else {
+                lotteryContent.innerHTML = "Không có dữ liệu";
+                }
+            } else {
+                lotteryContent.innerHTML = "Lỗi dữ liệu";
+            }
+            } catch (err) {
+            console.error(err);
+            lotteryContent.innerHTML = "Lỗi tải dữ liệu";
+            }
+        }
+
+        radios.forEach(r => r.addEventListener("change", () => fetchLottery(r.value)));
+        // initial
+        fetchLottery("none");
+        });
+    </script>
+
+</body>
+</html>
